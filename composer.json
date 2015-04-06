@@ -1,0 +1,21 @@
+{
+    "name": "jpunanua/yii2-seotools",
+    "description": "If you need set a special seo metas or text in different pages this is your extension",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension","seo","management","optimize","metas"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Javier Pérez Unanua",
+            "email": "javierperezu@hotmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "jpunanua\\seotools\\": ""
+        }
+    }
+}
