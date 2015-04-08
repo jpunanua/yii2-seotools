@@ -17,7 +17,6 @@ class m141023_143432_table_meta extends Migration
             'id_meta' => 'INT(11) UNSIGNED NOT NULL AUTO_INCREMENT',
             'hash' => 'VARCHAR(255) NOT NULL',
             'route' => 'VARCHAR(255) NOT NULL',
-            'params' => 'BLOB NULL',
             'robots_index' => 'ENUM(\'INDEX\',\'NOINDEX\') NULL',
             'robots_follow' => 'ENUM(\'FOLLOW\',\'NOFOLLOW\') NULL',
             'author' => 'VARCHAR(255) NULL',

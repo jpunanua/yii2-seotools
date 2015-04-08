@@ -1,6 +1,6 @@
 <?php
 
-namespace jpunanua\seo\models\base;
+namespace jpunanua\seotools\models\base;
 
 use Yii;
 
@@ -10,7 +10,7 @@ use Yii;
  * @property integer $id_meta
  * @property string $hash
  * @property string $route
- * @property resource $params
+
  * @property string $robots_index
  * @property string $robots_follow
  * @property string $author
@@ -40,8 +40,8 @@ class MetaBase extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['hash', 'route', 'created_at', 'updated_at'], 'required'],
-            [['params', 'robots_index', 'robots_follow', 'keywords', 'description', 'info'], 'string'],
+            [['hash', 'route', 'created_at', 'updated_at', 'sitemap'], 'required'],
+            [['robots_index', 'robots_follow', 'keywords', 'description', 'info'], 'string'],
             [['sitemap'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['hash', 'route', 'author', 'title'], 'string', 'max' => 255],
@@ -60,7 +60,6 @@ class MetaBase extends \yii\db\ActiveRecord
             'id_meta' => 'Id Meta',
             'hash' => 'Hash',
             'route' => 'Route',
-            'params' => 'Params',
             'robots_index' => 'Robots Index',
             'robots_follow' => 'Robots Follow',
             'author' => 'Author',

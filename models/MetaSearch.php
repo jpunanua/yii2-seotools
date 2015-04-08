@@ -1,27 +1,25 @@
 <?php
+
+namespace jpunanua\seotools\models;
+
+use Yii;
+use yii\base\Model;
+use yii\data\ActiveDataProvider;
+use jpunanua\seotools\models\base\MetaBase;
+
 /**
- * Created by PhpStorm.
- * User: javierperezunanua
- * Date: 1/4/15
- * Time: 17:01
+ * MetaSearch represents the model behind the search form about `jpunanua\seotools\models\base\MetaBase`.
  */
-
-namespace \jpunanua\seo\models;
-
-use jpunanua\seo\models\base\MetaBase;
-
-
 class MetaSearch extends MetaBase
 {
-
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'page_id'], 'integer'],
-            [['name', 'content', 'date_modified'], 'safe'],
+            [['id_meta', 'sitemap'], 'integer'],
+            [['hash', 'route', 'robots_index', 'robots_follow', 'author', 'title', 'keywords', 'description', 'info', 'sitemap_change_freq', 'sitemap_priority', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -43,24 +41,38 @@ class MetaSearch extends MetaBase
      */
     public function search($params)
     {
-        $query = Meta::find()->with('page');
+        $query = MetaBase::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to any records when validation fails
+            // $query->where('0=1');
             return $dataProvider;
         }
 
         $query->andFilterWhere([
-            'id' => $this->id,
-            'page_id' => $this->page_id,
-            'date_modified' => $this->date_modified,
+            'id_meta' => $this->id_meta,
+            'sitemap' => $this->sitemap,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'content', $this->content]);
+        $query->andFilterWhere(['like', 'hash', $this->hash])
+            ->andFilterWhere(['like', 'route', $this->route])
+            ->andFilterWhere(['like', 'robots_index', $this->robots_index])
+            ->andFilterWhere(['like', 'robots_follow', $this->robots_follow])
+            ->andFilterWhere(['like', 'author', $this->author])
+            ->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'keywords', $this->keywords])
+            ->andFilterWhere(['like', 'description', $this->description])
+            ->andFilterWhere(['like', 'info', $this->info])
+            ->andFilterWhere(['like', 'sitemap_change_freq', $this->sitemap_change_freq])
+            ->andFilterWhere(['like', 'sitemap_priority', $this->sitemap_priority]);
 
         return $dataProvider;
     }
