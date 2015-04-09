@@ -45,10 +45,12 @@ class Component extends \yii\base\Component
     public $cacheDuration = 3600;
 
     /**
-     *
+     * host + path: used to identify pages
      * @var null
      */
     public $route = null;
+
+    private $_info = '';
 
 
     /**
@@ -125,6 +127,7 @@ class Component extends \yii\base\Component
         if (!empty($v)) {
             Yii::$app->view->registerMetaTag(['name' => 'robots', 'content' => strtolower(implode(',', $v))], 'robots');
         }
+        return $this;
     }
 
     /**
@@ -136,6 +139,7 @@ class Component extends \yii\base\Component
         if (!empty($author)) {
             Yii::$app->view->registerMetaTag(['name' => 'author', 'content' => $author], 'author');
         }
+        return $this;
     }
 
     /**
@@ -147,6 +151,7 @@ class Component extends \yii\base\Component
         if (!empty($type)) {
             Yii::$app->view->registerMetaTag(['name' => 'og:type', 'content' => $type], 'og:type');
         }
+        return $this;
     }
 
     /**
@@ -160,6 +165,7 @@ class Component extends \yii\base\Component
             Yii::$app->view->registerMetaTag(['name' => 'og:title', 'content' => $title], 'og:title');
             Yii::$app->view->title = $title;
         }
+        return $this;
     }
 
     /**
@@ -172,6 +178,7 @@ class Component extends \yii\base\Component
             Yii::$app->view->registerMetaTag(['name' => 'description', 'content' => $description], 'description');
             Yii::$app->view->registerMetaTag(['name' => 'og:description', 'content' => $description], 'og:description');
         }
+        return $this;
     }
 
     /**
@@ -183,6 +190,7 @@ class Component extends \yii\base\Component
         if (!empty($keywords)) {
             Yii::$app->view->registerMetaTag(['name' => 'keywords', 'content' => $keywords], 'keywords');
         }
+        return $this;
     }
 
     /**
@@ -192,6 +200,7 @@ class Component extends \yii\base\Component
     public function setCanonical($url)
     {
         Yii::$app->view->registerLinkTag(['href' => $url, 'rel' => 'canonical'], 'canonical');
+        return $this;
     }
 
     /**
@@ -201,6 +210,22 @@ class Component extends \yii\base\Component
     public function setOpenGraphUrl($url)
     {
         Yii::$app->view->registerMetaTag(['name' => 'og:url', 'content' => $url], 'og:url');
+        return $this;
+    }
+
+    /**
+     * Register text associated to a Url
+     * @param string $info
+     */
+    public function setInfotext($info)
+    {
+        $this->_info = $info;
+        return $this;
+    }
+
+
+    public function getInfotext() {
+        return $this->_info;
     }
 
     /**
@@ -211,8 +236,8 @@ class Component extends \yii\base\Component
     public function setMeta($metadata = [], $setCanonical = false, $checkDb = false)
     {
         // Set to empty not given values
-        $metadataReset = ['robots_index' => '','robots_follow' => '','author' => '',
-            'title' => '','description' => '','keywords' => '','keywords' => '','params_url' => ''];
+        $metadataReset = ['robots_index' => '', 'robots_follow' => '', 'author' => '',
+            'title' => '', 'description' => '', 'info' =>'','keywords' => '', 'keywords' => '', 'params_url' => ''];
 
         $metadata = array_merge($metadataReset, $metadata);
 
@@ -224,12 +249,13 @@ class Component extends \yii\base\Component
         // Override meta with the defaults via merge
         $metadata = array_merge($metadata, $this->defaults);
 
-        $this->setRobots($metadata['robots_index'], $metadata['robots_follow']);
-        $this->setAuthor($metadata['author']);
-        $this->setTitle($metadata['title']);
-        $this->setDescription($metadata['description']);
-        $this->setKeywords($metadata['keywords']);
-        $this->setOpenGraphType($metadata['og:type']);
+        $this->setRobots($metadata['robots_index'], $metadata['robots_follow'])
+            ->setAuthor($metadata['author'])
+            ->setTitle($metadata['title'])
+            ->setDescription($metadata['description'])
+            ->setKeywords($metadata['keywords'])
+            ->setOpenGraphType($metadata['og:type'])
+            ->setInfotext($metadata['info']);
 
         if ($setCanonical == true) {
 
