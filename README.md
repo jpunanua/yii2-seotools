@@ -5,7 +5,7 @@ a wysiwis tool to add bold and links and improve your SEO in page with a unique 
 
 Set this fields using a module to manage all this functionality.
 
-Use internally a md5 hash to made a unique id with (Host + Path) to identify pages and yii cache system to improve speed
+Use internally a md5 hash to made a unique id with (Host + Path) to identify pages and yii cache system and tag dependency to improve speed
 
 Installation
 ------------
@@ -81,6 +81,12 @@ Once the extension is installed, simply use it in your code by  :
 $setCanonical = false;
 $checkDb = true;
 Yii::$app->seotools->setMeta(['title' => \Yii::t('title','A good title for this page')], $setCanonical, $checkDb);
+```
+
+You can invalidate the cache save records calling
+
+```php
+\yii\caching\TagDependency::invalidate(Yii::$app->cache, jpunanua\seotools\Component::CACHE_TAG);
 ```
 
 ###URLs
