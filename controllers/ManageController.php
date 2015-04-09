@@ -9,19 +9,37 @@ use jpunanua\seotools\models\Meta;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * ManageController implements the CRUD actions for MetaBase model.
  */
 class ManageController extends Controller
 {
+
+    /**
+     * @var \jpunanua\seotools\Module seotool module
+     */
+    public $module;
+
+
     public function behaviors()
     {
+
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => $this->module->roles,
+                    ],
                 ],
             ],
         ];

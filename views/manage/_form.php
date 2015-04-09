@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use mihaildev\ckeditor\CKEditor;
 
 /* @var $this yii\web\View */
 /* @var $model jpunanua\seotools\models\base\MetaBase */
@@ -26,7 +27,14 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'info')->textarea(['rows' => 6]) ?>
+    <?php
+    echo $form->field($model, 'info')->widget(CKEditor::className(),[
+        'editorOptions' => [
+            'preset' => 'full',
+            'inline' => false
+        ],
+    ]);
+    ?>
 
     <?= $form->field($model, 'sitemap')->textInput() ?>
 

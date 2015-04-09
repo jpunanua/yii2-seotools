@@ -1,8 +1,8 @@
 {
     "name": "jpunanua/yii2-seotools",
-    "description": "If you need set a special seo metas or text in different pages this is your extension",
+    "description": "Component and module to manage unique seo title, description, keywords and unique text associated with a page",
     "type": "yii2-extension",
-    "keywords": ["yii2","extension","seo","management","optimize","metas"],
+    "keywords": ["yii2","extension","seo","management","optimize","metas","description","title"],
     "license": "MIT",
     "authors": [
         {
