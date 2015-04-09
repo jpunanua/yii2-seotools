@@ -40,7 +40,7 @@ class MetaBase extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['hash', 'route', 'created_at', 'updated_at', 'sitemap'], 'required'],
+            [['hash', 'route', 'created_at', 'updated_at'], 'required'],
             [['robots_index', 'robots_follow', 'keywords', 'description', 'info'], 'string'],
             [['sitemap'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
