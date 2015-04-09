@@ -50,6 +50,14 @@ class Component extends \yii\base\Component
      */
     public $route = null;
 
+    /**
+     * chache tag dependency
+     *
+     * @var string
+     */
+    const CACHE_TAG = 'seotools';
+
+
     private $_info = '';
 
 
@@ -100,7 +108,9 @@ class Component extends \yii\base\Component
             $oMeta->save();
         }
 
-        $cache->set($cacheId, $aMeta, $this->cacheDuration);
+        $oTagDependency = new \yii\caching\TagDependency(['tags' => self::CACHE_TAG ]);
+
+        $cache->set($cacheId, $aMeta, $this->cacheDuration, $oTagDependency);
 
         return $aMeta;
     }
